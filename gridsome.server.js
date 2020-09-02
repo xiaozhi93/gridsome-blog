@@ -6,6 +6,13 @@
 // To restart press CTRL + C in terminal and run `gridsome develop`
 
 module.exports = function (api) {
+  // https://api.github.com/users/GitHub-Laziji
+  // https://api.github.com/user?access_token=96066f7ef7920cfaeb083bb11ea0836ae2737174
+  // https://api.github.com/users/GitHub-Laziji/repos?page=1&per_page=5
+  // https://api.github.com/users/GitHub-Laziji/gists?page=1&per_page=5
+  // https://api.github.com/users/GitHub-Laziji/followers?page=1&per_page=9
+  // https://api.github.com/users/GitHub-Laziji/following?page=1&per_page=9
+  // https://api.github.com/users/GitHub-Laziji/gists?page=1&per_page=1
   api.loadSource(({ addCollection }) => {
     // Use the Data Store API here: https://gridsome.org/docs/data-store-api/
   })
