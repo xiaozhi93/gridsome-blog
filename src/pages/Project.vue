@@ -146,6 +146,19 @@
     </el-card>
   </div>
 </template>
+<page-query>
+query {
+    allStrapiPost {
+        edges {
+            node {
+                title
+                content
+                updatedAt
+            }
+        }
+    }
+}
+</page-query>
 <script>
 export default {
   name: "Project",

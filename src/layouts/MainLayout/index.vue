@@ -216,23 +216,21 @@
         <el-row>
           <el-col :span="10">
             <div>
-              © 2020 xiaozhi93&emsp;&emsp;
-              <a href="https://github.com/xiaozhi93" target="_blank">Profile</a
-              >&emsp;&emsp;
-              <a href="https://github.com/xiaozhi93/vblog" target="_blank"
-                >VBlog</a
+              © 2020 {{ githubInfo.login }}&emsp;&emsp;
+              <a :href="githubInfo.login" target="_blank">Profile</a
               >
             </div>
           </el-col>
           <el-col :span="4">
             <div style="text-align: center; font-size: 18px;">
               <i class="el-icon-location-outline"></i>
+              {{ githubInfo.location }}
             </div>
           </el-col>
           <el-col :span="10">
             <div style="float: right;">
-              <a href="https://developer.github.com" target="_blank"
-                >GitHub-API</a
+              <a href="https://www.gridsome.cn/" target="_blank"
+                >Gridsome</a
               >&emsp;&emsp;
               <a href="https://cn.vuejs.org/" target="_blank">Vue.js</a
               >&emsp;&emsp;
@@ -251,7 +249,10 @@ query {
       node {
         login
         avatar_url
-        gravatar_id
+        name
+        bio
+        location
+        html_url
       }
     }
   }

@@ -1,5 +1,5 @@
 <template>
-  <div style="min-height: 600px;" v-loading="loading">
+  <div style="min-height: 600px;">
     <el-card shadow="never" style="margin-bottom: 20px;">
       <el-input
         placeholder="请输入关键字"
@@ -15,73 +15,47 @@
         plain
       ></el-button>
       <el-button
-        @click="$share()"
         style="margin-left: 10px;"
         icon="el-icon-share"
         type="warning"
         plain
         circle
       ></el-button>
-      <el-button
-        type="primary"
-        icon="el-icon-edit"
-        round
-        plain
-        style="float: right;"
-        @click="goAdd"
-        >写博文</el-button
-      >
     </el-card>
 
-    <div v-if="blogs && blogs.length > 0">
+    <div v-if="posts && posts.length > 0">
       <el-card
         shadow="hover"
-        v-for="(item, index) in blogs"
+        v-for="(post, index) in posts"
         :key="'p' + index"
         style="margin-bottom: 20px;"
-        v-if="!item.hide"
       >
         <div slot="header">
           <el-row>
             <el-col :span="16">
               <span>
-                <a
+                <g-link
                   style="text-decoration: none; cursor: pointer;"
-                  @click="goDetails(item.id)"
+                  :to="'/post/' + post.node.id"
                 >
-                  <i class="el-icon-edit-outline"></i>&nbsp;&nbsp;
-                  {{ item.title }}
-                </a>
+                  {{ post.node.title }}
+                </g-link>
               </span>
             </el-col>
             <el-col :span="8">
               <div style="text-align: right;">
                 <el-button
-                  @click="$share('/user/blog/details/' + item.id)"
+                  @click="$share('/user/blog/details/' + post.node.id)"
                   style="padding: 3px 0;"
                   type="text"
                   icon="el-icon-share"
-                ></el-button>
-                <el-button
-                  @click="editBlog(index)"
-                  style="padding: 3px 0;"
-                  type="text"
-                  icon="el-icon-edit"
-                  v-if="token"
-                ></el-button>
-                <el-button
-                  @click="deleteBlog(index)"
-                  style="padding: 3px 0;"
-                  type="text"
-                  icon="el-icon-delete"
-                  v-if="token"
                 ></el-button>
               </div>
             </el-col>
           </el-row>
         </div>
         <div style="font-size: 0.9rem; line-height: 1.5; color: #606c71;">
-          最近更新 {{ item.updateTime }}
+          最近更新 {{ post.node.updatedAt }}
         </div>
         <div
           style="
@@ -91,12 +65,11 @@
             padding: 10px 0px 0px 0px;
           "
         >
-          {{ item.description }}
+          {{ post.node.content }}
         </div>
       </el-card>
       <div style="text-align: center;">
         <el-pagination
-          @current-change="list"
           background
           layout="prev, pager, next"
           :current-page.sync="query.page"
@@ -114,7 +87,7 @@
         padding: 20px 0px 20px 0px;
         text-align: center;
       "
-      v-if="!blogs || blogs.length == 0"
+      v-if="!posts || posts.length == 0"
     >
       <font style="font-size: 30px; color: #dddddd;">
         <b>还没有博客 (╯°Д°)╯︵ ┻━┻</b>
@@ -129,6 +102,7 @@ query {
             node {
                 title
                 content
+                updatedAt
             }
         }
     }
@@ -140,5 +114,22 @@ export default {
   metaInfo: {
     title: "博客列表",
   },
+  data() {
+    return {
+      searchKey: '',
+      query: {
+        page: 1,
+        pageSize: 10
+      }
+    }
+  },
+  computed: {
+    posts() {
+      return this.$page.allStrapiPost.edges
+    }
+  },
+  methods: {
+    search() {}
+  }
 };
 </script>

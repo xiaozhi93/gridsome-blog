@@ -20,34 +20,11 @@
       </el-menu-item>
     </el-menu>
   </el-card>
-
-   <el-card shadow="never" style="margin-top: 20px; text-align: center;">
-    <div v-if="!token" style="font-size: 0.9rem; line-height: 1.5; color: #606c71;">
-      <el-tag type="danger" size="small">&nbsp;</el-tag>&nbsp;&nbsp;
-      Token未绑定&nbsp;&nbsp;
-      <el-button type="text" @click="openTokenDialog">绑定</el-button>
-    </div>
-    <div v-if="token" style="font-size: 0.9rem; line-height: 1.5; color: #303133;">
-      <el-tag type="success" size="small">&nbsp;</el-tag>&nbsp;&nbsp;
-      Token已绑定&nbsp;&nbsp;
-      <el-button type="text" @click="cancellation">注销</el-button>
-    </div>
-    <div style="margin-top: 10px; text-align: left;">
-      <el-alert title="Token获取" type="info" description="在 github-> settings-> developerSettings-> personalAccessTokens 勾选gist权限,获取Token. 详情参考README.md" :closable="false">
-      </el-alert>
-    </div>
-  </el-card> 
    
 </div>
 </template>
 
 <script>
-// <token-dialog ref="tokenDialog"></token-dialog>
-// import {
-//   mapGetters
-// } from "vuex";
-// import { constantRouterMap } from '@/router'
-// import TokenDialog from "@/views/common/TokenDialog";
 export const constantRouterMap = [{
     path: "/user/new",
     redirect: "/user/new/main",
