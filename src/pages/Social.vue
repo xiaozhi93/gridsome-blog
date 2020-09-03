@@ -10,7 +10,7 @@
           name="followers"
           style="padding: 5px;"
         >
-          <div v-loading="followers.loading">
+          <div>
             <div v-if="followers.list.length">
               <el-row style="min-height: 200px;">
                 <el-col
@@ -77,7 +77,7 @@
           name="following"
           style="padding: 5px;"
         >
-          <div v-loading="following.loading">
+          <div>
             <div v-if="following.list.length">
               <el-row style="min-height: 200px;">
                 <el-col
