@@ -4,7 +4,13 @@
 
 // Changes here require a server restart.
 // To restart press CTRL + C in terminal and run `gridsome develop`
-
+const axios = require('axios')
+const axiosQuerstList = [
+  axios('https://api.github.com/users/xiaozhi93'),
+  axios('https://api.github.com/users/xiaozhi93/followers'),
+  axios('https://api.github.com/users/xiaozhi93/following'),
+  axios('https://api.github.com/users/xiaozhi93/repos')
+]
 module.exports = function (api) {
   // https://api.github.com/users/GitHub-Laziji
   // https://api.github.com/user?access_token=96066f7ef7920cfaeb083bb11ea0836ae2737174
@@ -13,8 +19,16 @@ module.exports = function (api) {
   // https://api.github.com/users/GitHub-Laziji/followers?page=1&per_page=9
   // https://api.github.com/users/GitHub-Laziji/following?page=1&per_page=9
   // https://api.github.com/users/GitHub-Laziji/gists?page=1&per_page=1
-  api.loadSource(({ addCollection }) => {
-    // Use the Data Store API here: https://gridsome.org/docs/data-store-api/
+  api.loadSource(async ({ addCollection }) => {
+    const [res1, res2, res3, res4] = await Promise.all(axiosQuerstList)
+    console.log(res1, '1111111')
+    const userCollection = addCollection('User')
+    const followersCollection = addCollection('Followers')
+    const followingCollection = addCollection('Following')
+
+    userCollection.addNode(res1.data)
+    followersCollection.addNode(res2.data)
+    followingCollection.addNode(res3.data)
   })
 
   api.createPages(({ createPage }) => {

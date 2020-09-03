@@ -40,9 +40,9 @@
           <b>♪</b>
         </font>
       </div>
-      <h1 class="project-name">Windfly</h1>
-      <h2 class="project-tagline">欢迎来到风再起时的个人博客。</h2>
-      <a href="https://github.com/xiaozhi93" class="btn" target="_blank"
+      <h1 class="project-name">{{ githubInfo.name }}</h1>
+      <h2 class="project-tagline">{{ githubInfo.bio }}</h2>
+      <a :href="githubInfo.html_url" class="btn" target="_blank"
         >GitHub主页</a
       >
       <a
@@ -156,17 +156,17 @@
           </el-col>
           <el-col :span="4" style="text-align: right;">
             <div style="font-size: 20px; color: #606266; margin-top: 5px;">
-              <b>xiaozhi93</b>
+              <b>{{ githubInfo.login }}</b>
             </div>
             <div style="color: #606266;">
-              <i class="el-icon-location"></i>&nbsp; 杭州
+              <i class="el-icon-location"></i>&nbsp; {{ githubInfo.location }}
               <br />
             </div>
           </el-col>
           <el-col :span="2" style="text-align: center;">
             <img
               v-popover:bigAvatar
-              src="https://avatars3.githubusercontent.com/u/16452712?s=460&u=2dad6f4310d1ba45c40429cfa21a71e736864842&v=4"
+              :src="githubInfo.avatar_url"
               style="
                 margin-top: 4px;
                 margin-right: 10px;
@@ -179,16 +179,16 @@
             <el-popover
               ref="bigAvatar"
               placement="top-start"
-              :title="githubUsername"
+              :title="githubInfo.login"
               width="200"
               trigger="hover"
             >
-              <i class="el-icon-star-on"></i>&emsp;xiaozhi93
+              <i class="el-icon-star-on"></i>&emsp;{{ githubInfo.login }}
               <br />
-              <i class="el-icon-location"></i>&emsp;杭州
+              <i class="el-icon-location"></i>&emsp;{{ githubInfo.location }}
               <br />
               <img
-                src="https://avatars3.githubusercontent.com/u/16452712?s=460&u=2dad6f4310d1ba45c40429cfa21a71e736864842&v=4"
+                :src="githubInfo.avatar_url"
                 style="width: 200px; height: 200px;"
               />
             </el-popover>
@@ -244,7 +244,19 @@
     </section>
   </div>
 </template>
-
+<static-query>
+query {
+  allUser {
+    edges {
+      node {
+        login
+        avatar_url
+        gravatar_id
+      }
+    }
+  }
+}
+</static-query>
 <script>
 import Sidebar from "./components/Sidebar";
 export default {
@@ -285,6 +297,11 @@ export default {
       audioAutoPlay: "",
       webSites: "",
     };
+  },
+  computed: {
+    githubInfo() {
+      return this.$static.allUser.edges[0].node
+    }
   },
   watch: {
     "$refs.music.currentTime": function () {
