@@ -11,6 +11,7 @@ const axiosQuerstList = [
   axios('https://api.github.com/users/xiaozhi93/following'),
   axios('https://api.github.com/users/xiaozhi93/repos')
 ]
+// access_token=21e7ff4de75b422c57211f4923a20ae09dad5540
 module.exports = function (api) {
   api.loadSource(async ({ addCollection }) => {
     const [{ data: userData }, { data: followersData }, { data: followingData }, { data: repoData }] = await Promise.all(axiosQuerstList)
