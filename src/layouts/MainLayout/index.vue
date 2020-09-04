@@ -148,10 +148,10 @@
             </el-row>
 
             <audio ref="music" loop autoplay v-if="audioAutoPlay">
-              <source :src="audioUrl" type="audio/mpeg" />
+              <source src="/thatgirl.mp3" type="audio/mpeg" />
             </audio>
             <audio ref="music" loop v-else>
-              <source :src="audioUrl" type="audio/mpeg" />
+              <source src="thatgirl.mp3" type="audio/mpeg" />
             </audio>
           </el-col>
           <el-col :span="4" style="text-align: right;">

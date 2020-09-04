@@ -13,15 +13,24 @@ const axiosQuerstList = [
 ]
 module.exports = function (api) {
   api.loadSource(async ({ addCollection }) => {
-    const [res1, res2, res3, res4] = await Promise.all(axiosQuerstList)
+    const [{ data: userData }, { data: followersData }, { data: followingData }, { data: repoData }] = await Promise.all(axiosQuerstList)
     const userCollection = addCollection('User')
     const followersCollection = addCollection('Followers')
     const followingCollection = addCollection('Following')
     const reposCollection = addCollection('repo')
-    userCollection.addNode(res1.data)
-    followersCollection.addNode(res2.data)
-    followingCollection.addNode(res3.data)
-    reposCollection.addNode(res4.data)
+    userCollection.addNode(userData)
+    followersCollection.addNode(followersData)
+    followingCollection.addNode(followingData)
+    reposCollection.addNode(repoData)
+    // (res2.data || []).forEach(item => {
+    //   followersCollection.addNode(item)
+    // })
+    // (res3.data || []).forEach(item => {
+    //   followingCollection.addNode(item)
+    // })
+    // (res4.data || []).forEach(item => {
+    //   reposCollection.addNode(item)
+    // })
   })
 
   api.createPages(({ createPage }) => {

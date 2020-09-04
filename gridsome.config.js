@@ -13,7 +13,7 @@ module.exports = {
       options: {
         apiURL: 'http://119.45.51.253:1337',
         queryLimit: 1000, // Defaults to 100
-        contentTypes: ['post'],
+        contentTypes: ['post', 'site', 'new'],
         singleTypes: [],
       }
     }
