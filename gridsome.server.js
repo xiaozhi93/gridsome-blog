@@ -6,10 +6,10 @@
 // To restart press CTRL + C in terminal and run `gridsome develop`
 const axios = require('axios')
 const axiosQuerstList = [
-  axios('https://api.github.com/users/xiaozhi93?access_token=21e7ff4de75b422c57211f4923a20ae09dad5540'),
-  axios('https://api.github.com/users/xiaozhi93/followers?access_token=21e7ff4de75b422c57211f4923a20ae09dad5540'),
-  axios('https://api.github.com/users/xiaozhi93/following?access_token=21e7ff4de75b422c57211f4923a20ae09dad5540'),
-  axios('https://api.github.com/users/xiaozhi93/repos?access_token=21e7ff4de75b422c57211f4923a20ae09dad5540')
+  axios('https://api.github.com/users/xiaozhi93'),
+  axios('https://api.github.com/users/xiaozhi93/followers'),
+  axios('https://api.github.com/users/xiaozhi93/following'),
+  axios('https://api.github.com/users/xiaozhi93/repos')
 ]
 // access_token=21e7ff4de75b422c57211f4923a20ae09dad5540
 module.exports = function (api) {
