@@ -6,32 +6,30 @@
 // To restart press CTRL + C in terminal and run `gridsome develop`
 const axios = require('axios')
 const axiosQuerstList = [
-  axios('https://api.github.com/users/xiaozhi93'),
-  axios('https://api.github.com/users/xiaozhi93/followers'),
-  axios('https://api.github.com/users/xiaozhi93/following'),
-  axios('https://api.github.com/users/xiaozhi93/repos')
+  axios('https://api.github.com/users/xiaozhi93?access_token=21e7ff4de75b422c57211f4923a20ae09dad5540'),
+  axios('https://api.github.com/users/xiaozhi93/followers?access_token=21e7ff4de75b422c57211f4923a20ae09dad5540'),
+  axios('https://api.github.com/users/xiaozhi93/following?access_token=21e7ff4de75b422c57211f4923a20ae09dad5540'),
+  axios('https://api.github.com/users/xiaozhi93/repos?access_token=21e7ff4de75b422c57211f4923a20ae09dad5540')
 ]
 // access_token=21e7ff4de75b422c57211f4923a20ae09dad5540
 module.exports = function (api) {
   api.loadSource(async ({ addCollection }) => {
     const [{ data: userData }, { data: followersData }, { data: followingData }, { data: repoData }] = await Promise.all(axiosQuerstList)
+    console.log(followersData.length, followingData.length, repoData.length)
     const userCollection = addCollection('User')
     const followersCollection = addCollection('Followers')
     const followingCollection = addCollection('Following')
     const reposCollection = addCollection('repo')
     userCollection.addNode(userData)
-    followersCollection.addNode(followersData)
-    followingCollection.addNode(followingData)
-    reposCollection.addNode(repoData)
-    // (res2.data || []).forEach(item => {
-    //   followersCollection.addNode(item)
-    // })
-    // (res3.data || []).forEach(item => {
-    //   followingCollection.addNode(item)
-    // })
-    // (res4.data || []).forEach(item => {
-    //   reposCollection.addNode(item)
-    // })
+    followersData.forEach(item => {
+      followersCollection.addNode(item)
+    })
+    followingData.forEach(item => {
+      followingCollection.addNode(item)
+    })
+    repoData.forEach(item => {
+      reposCollection.addNode(item)
+    })
   })
 
   api.createPages(({ createPage }) => {

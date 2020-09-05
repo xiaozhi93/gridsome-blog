@@ -27,10 +27,9 @@
     <div v-if="projects && projects.length > 0">
       <el-card
         shadow="hover"
-        v-for="(item, index) in projects"
-        :key="'pro' + index"
+        v-for="item in projects"
+        :key="item.id"
         style="margin-bottom: 20px;"
-        v-if="!item.hide"
       >
         <div slot="header">
           <el-row>
@@ -38,23 +37,23 @@
               <span>
                 <a
                   style="text-decoration: none; cursor: pointer;"
-                  @click="goDetails(item.name)"
+                  @click="goDetails(item.node.name)"
                 >
-                  <i class="el-icon-service"></i>&nbsp;&nbsp; {{ item.name }}
+                  <i class="el-icon-service"></i>&nbsp;&nbsp; {{ item.node.name }}
                 </a>
               </span>
             </el-col>
             <el-col :span="8">
               <div style="text-align: right;">
                 <el-button
-                  @click="goGithub(item.url)"
+                  @click="goGithub(item.node.url)"
                   style="padding: 3px 0;"
                   type="text"
                   icon="el-icon-back"
                   >前往GitHub</el-button
                 >
                 <el-button
-                  @click="$share('/user/project/details/' + item.name)"
+                  @click="$share('/user/project/details/' + item.node.name)"
                   style="padding: 3px 0;"
                   type="text"
                   icon="el-icon-share"
@@ -64,7 +63,7 @@
           </el-row>
         </div>
         <div style="font-size: 0.9rem; line-height: 1.5; color: #606c71;">
-          最近更新 {{ item.updateTime }}
+          最近更新 {{ item.node.updated_at }}
         </div>
         <div
           style="
@@ -74,7 +73,7 @@
             padding: 10px 0px 0px 0px;
           "
         >
-          {{ item.description }}
+          {{ item.node.description }}
         </div>
         <div
           style="font-size: 1.1rem; color: #303133; padding: 10px 0px 0px 0px;"
@@ -83,7 +82,7 @@
             <el-col :span="16" style="padding-top: 5px;">
               <el-tooltip
                 effect="dark"
-                :content="'star ' + item.stargazersCount"
+                :content="'star ' + item.node.stargazers_count"
                 placement="bottom"
               >
                 <i
@@ -91,36 +90,36 @@
                   style="margin: 0px 5px 0px 0px;"
                 ></i>
               </el-tooltip>
-              {{ item.stargazersCount }}
+              {{ item.node.stargazers_count }}
               <el-tooltip
                 effect="dark"
-                :content="'watch ' + item.watchersCount"
+                :content="'watch ' + item.node.watchers_count"
                 placement="bottom"
               >
                 <i class="el-icon-view" style="margin: 0px 5px 0px 15px;"></i>
               </el-tooltip>
-              {{ item.watchersCount }}
+              {{ item.node.watchers_count }}
               <el-tooltip
                 effect="dark"
-                :content="'fork ' + item.forksCount"
+                :content="'fork ' + item.node.forks_count"
                 placement="bottom"
               >
                 <i class="el-icon-bell" style="margin: 0px 5px 0px 15px;"></i>
               </el-tooltip>
-              {{ item.forksCount }}
+              {{ item.node.forks_count }}
             </el-col>
             <el-col :span="8" style="text-align: right;">
-              <el-tag size="small" type="danger" v-if="item.license">{{
-                item.license
+              <el-tag size="small" type="danger" v-if="item.node.license">{{
+                item.node.license.name
               }}</el-tag>
-              <el-tag size="small" type="success">{{ item.language }}</el-tag>
+              <el-tag size="small" type="success" v-if="item.node.language">{{ item.node.language }}</el-tag>
             </el-col>
           </el-row>
         </div>
       </el-card>
       <div style="text-align: center;">
         <el-pagination
-          @current-change="list"
+          @current-change="changePage"
           background
           layout="prev, pager, next"
           :current-page.sync="query.page"
@@ -148,15 +147,25 @@
 </template>
 <page-query>
 query {
-    allStrapiPost {
-        edges {
-            node {
-                title
-                content
-                updatedAt
-            }
+  allRepo {
+    edges {
+      node {
+        id
+				name
+        full_name
+        url
+        language
+        forks_count
+        watchers_count
+        stargazers_count
+        description
+        updated_at
+        license {
+          name
         }
+      }
     }
+  }
 }
 </page-query>
 <script>
@@ -165,5 +174,23 @@ export default {
   metaInfo: {
     title: "开源项目",
   },
+  data() {
+    return {
+      searchKey: '',
+      query: {
+        page: 1,
+        pageSize: 10
+      }
+    }
+  },
+  computed: {
+    projects() {
+      return this.$page.allRepo.edges
+    }
+  },
+  methods: {
+    search() {},
+    changePage() {}
+  }
 };
 </script>

@@ -11,11 +11,11 @@
           style="padding: 5px;"
         >
           <div>
-            <div v-if="followers.list.length">
+            <div v-if="followersList.length">
               <el-row style="min-height: 200px;">
                 <el-col
                   :span="8"
-                  v-for="(item, index) in followers.list"
+                  v-for="(item, index) in followersList"
                   :key="'followers' + index"
                   style="padding: 10px;"
                 >
@@ -78,12 +78,12 @@
           style="padding: 5px;"
         >
           <div>
-            <div v-if="following.list.length">
+            <div v-if="followingList.length">
               <el-row style="min-height: 200px;">
                 <el-col
                   :span="8"
-                  v-for="(item, index) in following.list"
-                  :key="'following' + index"
+                  v-for="item in followingList"
+                  :key="item.id"
                   style="padding: 10px;"
                 >
                   <el-card
@@ -92,21 +92,21 @@
                   >
                     <i class="el-icon-star-off"></i>&emsp;
                     <a
-                      @click="$router.push(`/user/social/details/${item.name}`)"
+                      @click="$router.push(`/user/social/details/${item.node.login}`)"
                       style="text-decoration: none; cursor: pointer;"
-                      >{{ item.name }}</a
+                      >{{ item.node.login }}</a
                     >
                     <br />
                     <i class="el-icon-message"></i>&emsp;
                     <a
-                      :href="item.htmlUrl"
+                      :href="item.node.html_url"
                       target="_blank"
                       style="text-decoration: none; cursor: pointer;"
                       >TA的主页</a
                     >
                     <br />
                     <img
-                      :src="item.avatarUrl"
+                      :src="item.node.avatar_url"
                       style="width: 100%; border-radius: 5px; margin-top: 5px;"
                     />
                   </el-card>
@@ -143,11 +143,62 @@
     </el-card>
   </div>
 </template>
+<page-query>
+query {
+  allFollowing {
+    edges {
+      node {
+        id
+				login
+        avatar_url
+        html_url
+      }
+    }
+  }
+  allFollowers {
+    edges {
+      node {
+        id
+      }
+    }
+  }
+}
+</page-query>
 <script>
 export default {
   name: "SocialPage",
   metaInfo: {
     title: "社交圈",
   },
+  data() {
+    return {
+      activeTab: 'followers',
+      followersTotal: 0,
+      followingTotal: 0,
+      followers: {
+        query: {
+          page: 1,
+          pageSize: 10
+        }
+      },
+      following: {
+        query: {
+          page: 1,
+          pageSize: 10
+        }
+      }
+    }
+  },
+  computed: {
+    followersList() {
+      return this.$page.allFollowers.edges
+    },
+    followingList() {
+      return this.$page.allFollowing.edges
+    }
+  },
+  methods: {
+    onSelect() {}
+  }
 };
 </script>
