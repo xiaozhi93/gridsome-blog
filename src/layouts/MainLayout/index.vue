@@ -46,13 +46,7 @@
       <a :href="blog_url" class="btn" target="_blank" v-if="!mini">博客源码</a>
     </section>
     <div
-      style="
-        position: relative;
-        z-index: 2;
-        margin: auto;
-        margin-top: -30px;
-        width: 64rem;
-      "
+      style="position: relative;z-index: 2; margin: auto; margin-top: -30px;width: 64rem;"
     >
       <el-card shadow="never" :body-style="{ padding: '0px' }">
         <el-row>
@@ -127,11 +121,7 @@
               </el-col>
               <el-col
                 :span="6"
-                style="
-                  padding: 9px 0px 0px 10px;
-                  color: #909399;
-                  font-size: 13px;
-                "
+                style="padding: 9px 0px 0px 10px;color: #909399;font-size: 13px;"
               >
                 {{ $util.formatTime(music.currentTime) }}/{{
                   $util.formatTime(music.maxTime)
