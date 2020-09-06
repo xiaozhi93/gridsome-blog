@@ -12,7 +12,7 @@
         ';'
       "
     >
-      <div style="position: absolute; top: 20px; right: 20px; z-index: 2;">
+      <div style="position: absolute; top: 20px; right: 20px; z-index: 2">
         <el-tooltip
           effect="dark"
           :content="fullButton.full ? '退出' : '全屏'"
@@ -42,19 +42,17 @@
       </div>
       <h1 class="project-name">{{ githubInfo.name }}</h1>
       <h2 class="project-tagline">{{ githubInfo.bio }}</h2>
-      <a :href="githubInfo.html_url" class="btn" target="_blank"
-        >GitHub主页</a
-      >
-      <a
-        :href="blog_url"
-        class="btn"
-        target="_blank"
-        v-if="!mini"
-        >博客源码</a
-      >
+      <a :href="githubInfo.html_url" class="btn" target="_blank">GitHub主页</a>
+      <a :href="blog_url" class="btn" target="_blank" v-if="!mini">博客源码</a>
     </section>
     <div
-      style="position: relative;z-index: 2;margin: auto;margin-top: -30px;width: 64rem;"
+      style="
+        position: relative;
+        z-index: 2;
+        margin: auto;
+        margin-top: -30px;
+        width: 64rem;
+      "
     >
       <el-card shadow="never" :body-style="{ padding: '0px' }">
         <el-row>
@@ -83,12 +81,12 @@
           </el-col>
           <el-col
             :span="8"
-            style="text-align: center; padding: 12px 0px 0px 10px;"
+            style="text-align: center; padding: 12px 0px 0px 10px"
           >
             <el-row>
               <el-col :span="4">
                 <el-popover placement="top" trigger="hover">
-                  <div style="text-align: center;">
+                  <div style="text-align: center">
                     <el-progress
                       color="#67C23A"
                       type="circle"
@@ -118,13 +116,13 @@
                   ></el-button>
                 </el-popover>
               </el-col>
-              <el-col :span="14" style="padding-left: 20px;">
+              <el-col :span="14" style="padding-left: 20px">
                 <el-slider
                   @change="changeTime"
                   :format-tooltip="$util.formatTime"
                   :max="music.maxTime"
                   v-model="music.currentTime"
-                  style="width: 100%;"
+                  style="width: 100%"
                 ></el-slider>
               </el-col>
               <el-col
@@ -148,27 +146,20 @@
               <source src="thatgirl.mp3" type="audio/mpeg" />
             </audio>
           </el-col>
-          <el-col :span="4" style="text-align: right;">
-            <div style="font-size: 20px; color: #606266; margin-top: 5px;">
+          <el-col :span="4" style="text-align: right">
+            <div style="font-size: 20px; color: #606266; margin-top: 5px">
               <b>{{ githubInfo.login }}</b>
             </div>
-            <div style="color: #606266;">
+            <div style="color: #606266">
               <i class="el-icon-location"></i>&nbsp; {{ githubInfo.location }}
               <br />
             </div>
           </el-col>
-          <el-col :span="2" style="text-align: center;">
+          <el-col :span="2" style="text-align: center">
             <img
               v-popover:bigAvatar
               :src="githubInfo.avatar_url"
-              style="
-                margin-top: 4px;
-                margin-right: 10px;
-                width: 52px;
-                height: 52px;
-                border-radius: 5px;
-                border: 1px solid #ebeef5;
-              "
+              style="margin-top: 4px;margin-right: 10px;width: 52px; height: 52px;border-radius: 5px;border: 1px solid #ebeef5;"
             />
             <el-popover
               ref="bigAvatar"
@@ -183,7 +174,7 @@
               <br />
               <img
                 :src="githubInfo.avatar_url"
-                style="width: 200px; height: 200px;"
+                style="width: 200px; height: 200px"
               />
             </el-popover>
           </el-col>
@@ -192,39 +183,34 @@
     </div>
     <section class="main-content">
       <el-row>
-        <el-col :span="6" style="padding-right: 10px;">
+        <el-col :span="6" style="padding-right: 10px">
           <sidebar></sidebar>
         </el-col>
-        <el-col :span="18" style="padding-left: 10px;">
+        <el-col :span="18" style="padding-left: 10px">
           <slot></slot>
         </el-col>
       </el-row>
     </section>
     <section class="foot">
       <div
-        style="
-          border-top: 1px #e1e4e8 solid !important;
-          padding: 45px 0px 45px 0px;
-        "
+        style="border-top: 1px #e1e4e8 solid !important;padding: 45px 0px 45px 0px;"
       >
         <el-row>
           <el-col :span="10">
             <div>
               © 2020 {{ githubInfo.login }}&emsp;&emsp;
-              <a :href="githubInfo.login" target="_blank">Profile</a
-              >
+              <a :href="githubInfo.login" target="_blank">Profile</a>
             </div>
           </el-col>
           <el-col :span="4">
-            <div style="text-align: center; font-size: 18px;">
+            <div style="text-align: center; font-size: 18px">
               <i class="el-icon-location-outline"></i>
               {{ githubInfo.location }}
             </div>
           </el-col>
           <el-col :span="10">
-            <div style="float: right;">
-              <a href="https://www.gridsome.cn/" target="_blank"
-                >Gridsome</a
+            <div style="float: right">
+              <a href="https://www.gridsome.cn/" target="_blank">Gridsome</a
               >&emsp;&emsp;
               <a href="https://cn.vuejs.org/" target="_blank">Vue.js</a
               >&emsp;&emsp;
@@ -255,27 +241,29 @@ query {
 <script>
 import Sidebar from "./components/Sidebar";
 export default {
-  name: 'MainLayout',
+  name: "MainLayout",
   components: {
-    Sidebar
+    Sidebar,
   },
   data() {
     return {
-      music: { // 音乐控件
+      music: {
+        // 音乐控件
         audioAutoPlay: true,
         isPlay: false,
         currentTime: 0,
         maxTime: 0,
         volume: 100,
       },
-      fullButton: { // 全屏控件
+      fullButton: {
+        // 全屏控件
         full: false,
       },
       topbar: {
         active: "",
       },
       randomIcon: [],
-      blog_url: 'https://github.com/xiaozhi93/gridsome-blog',
+      blog_url: "https://github.com/xiaozhi93/gridsome-blog",
       fontColor: "",
       backgroundColorLeft: "#2690F9",
       backgroundColorRight: "#FC2D2D",
@@ -288,8 +276,8 @@ export default {
   },
   computed: {
     githubInfo() {
-      return this.$static.allUser.edges[0].node
-    }
+      return this.$static.allUser.edges[0].node;
+    },
   },
   watch: {
     "$refs.music.currentTime": function () {
